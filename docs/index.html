@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="/socket.io/socket.io.js"></script>
   <meta charset="utf-8"/>
   <title>PDFJSAnnotate</title>
   <link rel="stylesheet" type="text/css" href="shared/toolbar.css"/>
   <link rel="stylesheet" type="text/css" href="shared/pdf_viewer.css"/>
   <style type="text/css">
+    .btn {
+      background-color: #1E2650;
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+
     body {
       background-color: #eee;
       font-family: sans-serif;
@@ -84,10 +101,13 @@
       border-image: none;
     }
   </style>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <div class="toolbar">
-    <button class="cursor" type="button" title="Cursor" data-tooltype="cursor">➚</button>
+    <button class="cursor " type="button" title="Cursor" data-tooltype="cursor">➚</button>
 
     <div class="spacer"></div>
 

@@ -55,6 +55,9 @@
   },
   "dependencies": {
     "create-stylesheet": "^0.3.0",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "express": "^4.18.0",
+    "moment": "^2.29.3",
+    "socket.io": "^4.5.0"
   }
 }
