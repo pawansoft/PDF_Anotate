@@ -1,9 +1,4 @@
-// const socket =  io()
-const socket = io()
 
-function getSocket() {
-	return socket
-}
 
 /******/ (function (modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -374,16 +369,25 @@ function getSocket() {
 				return ['point', 'highlight', 'area'].indexOf(type) > -1;
 			}
 
-			getSocket().on('insert_comment', comment => {
-				insertComment(comment)
-			})
-
 			function insertComment(comment) {
-				getSocket().emit('insert_comment', comment)
+				alert(comment)
 				console.log(comment, 'getting comment from end user');
 				var child = document.createElement('div');
 				child.className = 'comment-list-item';
 				child.innerHTML = _twitterText2.default.autoLink(_twitterText2.default.htmlEscape(comment.content));
+
+
+
+
+
+
+
+
+
+
+
+
+
 				commentList.appendChild(child);
 			}
 
@@ -429,11 +433,9 @@ function getSocket() {
 
 		/***/
 	},
-	/* 1 */
-
-	
-
+/* 1 */
 /***/ function (module, exports, __webpack_require__) {
+
 		var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__; (function () {
 			if (typeof twttr === "undefined" || twttr === null) {
 				var twttr = {};
@@ -2206,12 +2208,7 @@ function getSocket() {
 		 * @param {String} content The text content that should be read by screen reader
 		 * @param {String} [annotationId] The ID of the annotation assocaited
 		 * @return {Element} An Element that is only visible to screen readers
-		 * 
-		 */ getSocket().on('read_only_content', (content, annotationId) => {
-						createScreenReaderOnly(content, annotationId)
-					})
-		 /**
-		 */function createScreenReaderOnly(content, annotationId) { getSocket().emit('read_only_content', (content, annotationId)); var node = document.createElement('div'); var text = document.createTextNode(content); node.appendChild(text); node.setAttribute('id', 'pdf-annotate-screenreader-' + annotationId); node.style.position = 'absolute'; node.style.left = '-10000px'; node.style.top = 'auto'; node.style.width = '1px'; node.style.height = '1px'; node.style.overflow = 'hidden'; return node; } module.exports = exports['default'];/***/
+		 */function createScreenReaderOnly(content, annotationId) { var node = document.createElement('div'); var text = document.createTextNode(content); node.appendChild(text); node.setAttribute('id', 'pdf-annotate-screenreader-' + annotationId); node.style.position = 'absolute'; node.style.left = '-10000px'; node.style.top = 'auto'; node.style.width = '1px'; node.style.height = '1px'; node.style.overflow = 'hidden'; return node; } module.exports = exports['default'];/***/
 				},/* 23 *//***/function (module, exports, __webpack_require__) {
 					'use strict'; Object.defineProperty(exports, "__esModule", { value: true }); exports.default = insertElementWithinChildren; var _insertElementWithinElement = __webpack_require__(24); var _insertElementWithinElement2 = _interopRequireDefault(_insertElementWithinElement); var _utils = __webpack_require__(6); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; } function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }/**
 		 * Insert an element at a point within the document.
@@ -2285,11 +2282,7 @@ function getSocket() {
 		 * @param {String} annotationId The ID of the annotation
 		 * @param {Array} [comments] Optionally preloaded comments to be rendered
 		 * @return {Promise}
-		 */ getSocket().on('renderScreenReaderComments', (documentId, annotationId, comments) => {
-						renderScreenReaderComments(documentId, annotationId, comments)
-					}) /**
 		 */function renderScreenReaderComments(documentId, annotationId, comments) {
-						getSocket().emit('renderScreenReaderComments', documentId, annotationId, comments)
 						var promise = void 0; if (Array.isArray(comments)) { promise = Promise.resolve(comments); } else { promise = _PDFJSAnnotate2.default.getStoreAdapter().getComments(documentId, annotationId); } return promise.then(function (comments) {// Node needs to be found by querying DOM as it may have been inserted as innerHTML
 							// leaving `screenReaderNode` as an invalid reference (see `insertElementWithinElement`).
 							var node = document.getElementById('pdf-annotate-screenreader-' + annotationId); if (node) { var list = document.createElement('ol'); list.setAttribute('id', 'pdf-annotate-screenreader-comment-list-' + annotationId); list.setAttribute('aria-label', 'Comments'); node.appendChild(list); comments.forEach(_insertScreenReaderComment2.default); }
@@ -2300,10 +2293,7 @@ function getSocket() {
 		 * Insert a comment into the DOM to be available by screen reader
 		 *
 		 * @param {Object} comment The comment to be inserted
-		 */getSocket().on('insertScreenReaderComment', comment => {
-						insertScreenReaderComment(comment)
-					}) /*
-		 */function insertScreenReaderComment(comment) { getSocket().emit('insertScreenReaderComment', comment); if (!comment) { return; } var list = document.querySelector('#pdf-annotate-screenreader-' + comment.annotation + ' ol'); if (list) { var item = document.createElement('li'); item.setAttribute('id', 'pdf-annotate-screenreader-comment-' + comment.uuid); item.appendChild(document.createTextNode('' + comment.content)); list.appendChild(item); } } module.exports = exports['default'];/***/
+		 */function insertScreenReaderComment(comment) { if (!comment) { return; } var list = document.querySelector('#pdf-annotate-screenreader-' + comment.annotation + ' ol'); if (list) { var item = document.createElement('li'); item.setAttribute('id', 'pdf-annotate-screenreader-comment-' + comment.uuid); item.appendChild(document.createTextNode('' + comment.content)); list.appendChild(item); } } module.exports = exports['default'];/***/
 				},/* 27 *//***/function (module, exports, __webpack_require__) {
 					'use strict'; Object.defineProperty(exports, "__esModule", { value: true }); exports.default = initEventHandlers; var _insertScreenReaderHint = __webpack_require__(21); var _insertScreenReaderHint2 = _interopRequireDefault(_insertScreenReaderHint); var _renderScreenReaderHints = __webpack_require__(20); var _renderScreenReaderHints2 = _interopRequireDefault(_renderScreenReaderHints); var _insertScreenReaderComment = __webpack_require__(26); var _insertScreenReaderComment2 = _interopRequireDefault(_insertScreenReaderComment); var _renderScreenReaderComments = __webpack_require__(25); var _renderScreenReaderComments2 = _interopRequireDefault(_renderScreenReaderComments); var _event = __webpack_require__(4); var _PDFJSAnnotate = __webpack_require__(1); var _PDFJSAnnotate2 = _interopRequireDefault(_PDFJSAnnotate); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }/**
 		 * Initialize the event handlers for keeping screen reader hints synced with data
@@ -2339,14 +2329,7 @@ function getSocket() {
 		 * Create an overlay for editing an annotation.
 		 *
 		 * @param {Element} target The annotation element to apply overlay for
-		 * 
-		 * 
-		 * 
-		 */getSocket().on('edit_overlay', target => {
-						createEditOverlay(target)
-					})
-		/**
-		 */function createEditOverlay(target) { destroyEditOverlay(); getSocket().emit("edit_overlay", target); overlay = document.createElement('div'); var anchor = document.createElement('a'); var parentNode = (0, _utils.findSVGContainer)(target).parentNode; var id = target.getAttribute('data-pdf-annotate-id'); var rect = (0, _utils.getAnnotationRect)(target); var styleLeft = rect.left - OVERLAY_BORDER_SIZE; var styleTop = rect.top - OVERLAY_BORDER_SIZE; overlay.setAttribute('id', 'pdf-annotate-edit-overlay'); overlay.setAttribute('data-target-id', id); overlay.style.boxSizing = 'content-box'; overlay.style.position = 'absolute'; overlay.style.top = styleTop + 'px'; overlay.style.left = styleLeft + 'px'; overlay.style.width = rect.width + 'px'; overlay.style.height = rect.height + 'px'; overlay.style.border = OVERLAY_BORDER_SIZE + 'px solid ' + _utils.BORDER_COLOR; overlay.style.borderRadius = OVERLAY_BORDER_SIZE + 'px'; anchor.innerHTML = '×'; anchor.setAttribute('href', 'javascript://'); anchor.style.background = '#fff'; anchor.style.borderRadius = '20px'; anchor.style.border = '1px solid #bbb'; anchor.style.color = '#bbb'; anchor.style.fontSize = '16px'; anchor.style.padding = '2px'; anchor.style.textAlign = 'center'; anchor.style.textDecoration = 'none'; anchor.style.position = 'absolute'; anchor.style.top = '-13px'; anchor.style.right = '-13px'; anchor.style.width = '25px'; anchor.style.height = '25px'; overlay.appendChild(anchor); parentNode.appendChild(overlay); document.addEventListener('click', handleDocumentClick); document.addEventListener('keyup', handleDocumentKeyup); document.addEventListener('mousedown', handleDocumentMousedown); anchor.addEventListener('click', deleteAnnotation); anchor.addEventListener('mouseover', function () { anchor.style.color = '#35A4DC'; anchor.style.borderColor = '#999'; anchor.style.boxShadow = '0 1px 1px #ccc'; }); anchor.addEventListener('mouseout', function () { anchor.style.color = '#bbb'; anchor.style.borderColor = '#bbb'; anchor.style.boxShadow = ''; }); overlay.addEventListener('mouseover', function () { if (!isDragging) { anchor.style.display = ''; } }); overlay.addEventListener('mouseout', function () { anchor.style.display = 'none'; }); }/**
+		 */function createEditOverlay(target) { destroyEditOverlay(); overlay = document.createElement('div'); var anchor = document.createElement('a'); var parentNode = (0, _utils.findSVGContainer)(target).parentNode; var id = target.getAttribute('data-pdf-annotate-id'); var rect = (0, _utils.getAnnotationRect)(target); var styleLeft = rect.left - OVERLAY_BORDER_SIZE; var styleTop = rect.top - OVERLAY_BORDER_SIZE; overlay.setAttribute('id', 'pdf-annotate-edit-overlay'); overlay.setAttribute('data-target-id', id); overlay.style.boxSizing = 'content-box'; overlay.style.position = 'absolute'; overlay.style.top = styleTop + 'px'; overlay.style.left = styleLeft + 'px'; overlay.style.width = rect.width + 'px'; overlay.style.height = rect.height + 'px'; overlay.style.border = OVERLAY_BORDER_SIZE + 'px solid ' + _utils.BORDER_COLOR; overlay.style.borderRadius = OVERLAY_BORDER_SIZE + 'px'; anchor.innerHTML = '×'; anchor.setAttribute('href', 'javascript://'); anchor.style.background = '#fff'; anchor.style.borderRadius = '20px'; anchor.style.border = '1px solid #bbb'; anchor.style.color = '#bbb'; anchor.style.fontSize = '16px'; anchor.style.padding = '2px'; anchor.style.textAlign = 'center'; anchor.style.textDecoration = 'none'; anchor.style.position = 'absolute'; anchor.style.top = '-13px'; anchor.style.right = '-13px'; anchor.style.width = '25px'; anchor.style.height = '25px'; overlay.appendChild(anchor); parentNode.appendChild(overlay); document.addEventListener('click', handleDocumentClick); document.addEventListener('keyup', handleDocumentKeyup); document.addEventListener('mousedown', handleDocumentMousedown); anchor.addEventListener('click', deleteAnnotation); anchor.addEventListener('mouseover', function () { anchor.style.color = '#35A4DC'; anchor.style.borderColor = '#999'; anchor.style.boxShadow = '0 1px 1px #ccc'; }); anchor.addEventListener('mouseout', function () { anchor.style.color = '#bbb'; anchor.style.borderColor = '#bbb'; anchor.style.boxShadow = ''; }); overlay.addEventListener('mouseover', function () { if (!isDragging) { anchor.style.display = ''; } }); overlay.addEventListener('mouseout', function () { anchor.style.display = 'none'; }); }/**
 		 * Destroy the edit overlay if it exists.
 		 */function destroyEditOverlay() { if (overlay) { overlay.parentNode.removeChild(overlay); overlay = null; } document.removeEventListener('click', handleDocumentClick); document.removeEventListener('keyup', handleDocumentKeyup); document.removeEventListener('mousedown', handleDocumentMousedown); document.removeEventListener('mousemove', handleDocumentMousemove); document.removeEventListener('mouseup', handleDocumentMouseup); (0, _utils.enableUserSelect)(); }/**
 		 * Delete currently selected annotation
@@ -2450,12 +2433,7 @@ function getSocket() {
 		 * Handle document.mouseup event
 		 *
 		 * @param {Event} The DOM event to be handled
-		 * 
-		 */getSocket().on('open_comment', e => {
-						handleDocumentMouseup(e)
-					})
-		/**
-		 */function handleDocumentMouseup(e) { getSocket().emit('open_comment', e); if (input || !(0, _utils.findSVGAtPoint)(e.clientX, e.clientY)) { return; } input = document.createElement('input'); input.setAttribute('id', 'pdf-annotate-point-input'); input.setAttribute('placeholder', 'Enter comment'); input.style.border = '3px solid ' + _utils.BORDER_COLOR; input.style.borderRadius = '3px'; input.style.position = 'absolute'; input.style.top = e.clientY + 'px'; input.style.left = e.clientX + 'px'; input.addEventListener('blur', handleInputBlur); input.addEventListener('keyup', handleInputKeyup); document.body.appendChild(input); input.focus(); }/**
+		 */function handleDocumentMouseup(e) { if (input || !(0, _utils.findSVGAtPoint)(e.clientX, e.clientY)) { return; } input = document.createElement('input'); input.setAttribute('id', 'pdf-annotate-point-input'); input.setAttribute('placeholder', 'Enter comment'); input.style.border = '3px solid ' + _utils.BORDER_COLOR; input.style.borderRadius = '3px'; input.style.position = 'absolute'; input.style.top = e.clientY + 'px'; input.style.left = e.clientX + 'px'; input.addEventListener('blur', handleInputBlur); input.addEventListener('keyup', handleInputKeyup); document.body.appendChild(input); input.focus(); }/**
 		 * Handle input.blur event
 		 */function handleInputBlur() { savePoint(); }/**
 		 * Handle input.keyup event
@@ -2479,12 +2457,7 @@ function getSocket() {
 		 * Handle document.mousedown event
 		 *
 		 * @param {Event} e The DOM event to handle
-		 * 
-		 */getSocket().on('over_lay', e => {
-						handleDocumentMouseup(e)
-					})
-		/**
-		 */function handleDocumentMousedown(e) { getSocket().emit('over_lay', e); var svg = void 0; if (_type !== 'area' || !(svg = (0, _utils.findSVGAtPoint)(e.clientX, e.clientY))) { return; } var rect = svg.getBoundingClientRect(); originY = e.clientY; originX = e.clientX; overlay = document.createElement('div'); overlay.style.position = 'absolute'; overlay.style.top = originY - rect.top + 'px'; overlay.style.left = originX - rect.left + 'px'; overlay.style.border = '3px solid ' + _utils.BORDER_COLOR; overlay.style.borderRadius = '3px'; svg.parentNode.appendChild(overlay); document.addEventListener('mousemove', handleDocumentMousemove); (0, _utils.disableUserSelect)(); }/**
+		 */function handleDocumentMousedown(e) { var svg = void 0; if (_type !== 'area' || !(svg = (0, _utils.findSVGAtPoint)(e.clientX, e.clientY))) { return; } var rect = svg.getBoundingClientRect(); originY = e.clientY; originX = e.clientX; overlay = document.createElement('div'); overlay.style.position = 'absolute'; overlay.style.top = originY - rect.top + 'px'; overlay.style.left = originX - rect.left + 'px'; overlay.style.border = '3px solid ' + _utils.BORDER_COLOR; overlay.style.borderRadius = '3px'; svg.parentNode.appendChild(overlay); document.addEventListener('mousemove', handleDocumentMousemove); (0, _utils.disableUserSelect)(); }/**
 		 * Handle document.mousemove event
 		 *
 		 * @param {Event} e The DOM event to handle
@@ -2520,12 +2493,7 @@ function getSocket() {
 		 * Handle document.mouseup event
 		 *
 		 * @param {Event} e The DOM event to handle
-		 * 
-		 */getSocket().on('annotation_text', e => {
-						handleDocumentMouseup(e)
-					})
-		/**
-		 */function handleDocumentMouseup(e) { getSocket().emit('annotation_text', e); if (input || !(0, _utils.findSVGAtPoint)(e.clientX, e.clientY)) { return; } input = document.createElement('input'); input.setAttribute('id', 'pdf-annotate-text-input'); input.setAttribute('placeholder', 'Enter text'); input.style.border = '3px solid ' + _utils.BORDER_COLOR; input.style.borderRadius = '3px'; input.style.position = 'absolute'; input.style.top = e.clientY + 'px'; input.style.left = e.clientX + 'px'; input.style.fontSize = _textSize + 'px'; input.addEventListener('blur', handleInputBlur); input.addEventListener('keyup', handleInputKeyup); document.body.appendChild(input); input.focus(); }/**
+		 */function handleDocumentMouseup(e) { if (input || !(0, _utils.findSVGAtPoint)(e.clientX, e.clientY)) { return; } input = document.createElement('input'); input.setAttribute('id', 'pdf-annotate-text-input'); input.setAttribute('placeholder', 'Enter text'); input.style.border = '3px solid ' + _utils.BORDER_COLOR; input.style.borderRadius = '3px'; input.style.position = 'absolute'; input.style.top = e.clientY + 'px'; input.style.left = e.clientX + 'px'; input.style.fontSize = _textSize + 'px'; input.addEventListener('blur', handleInputBlur); input.addEventListener('keyup', handleInputKeyup); document.body.appendChild(input); input.focus(); }/**
 		 * Handle input.blur event
 		 */function handleInputBlur() { saveText(); }/**
 		 * Handle input.keyup event
@@ -2552,11 +2520,7 @@ function getSocket() {
 		 *
 		 * @param {Number} pageNumber The page number that is being created
 		 * @return {HTMLElement}
-		 */getSocket().on('create_page', page_number => {
-						handleDocumentMouseup(page_number)
-					})
-		/**	
-		 */function createPage(pageNumber) { getSocket().emit('create_page', pageNumber); var temp = document.createElement('div'); temp.innerHTML = PAGE_TEMPLATE; var page = temp.children[0]; var canvas = page.querySelector('canvas'); page.setAttribute('id', 'pageContainer' + pageNumber); page.setAttribute('data-page-number', pageNumber); canvas.mozOpaque = true; canvas.setAttribute('id', 'page' + pageNumber); return page; }/**
+		 */function createPage(pageNumber) { var temp = document.createElement('div'); temp.innerHTML = PAGE_TEMPLATE; var page = temp.children[0]; var canvas = page.querySelector('canvas'); page.setAttribute('id', 'pageContainer' + pageNumber); page.setAttribute('data-page-number', pageNumber); canvas.mozOpaque = true; canvas.setAttribute('id', 'page' + pageNumber); return page; }/**
 		 * Render a page that has already been created.
 		 *
 		 * @param {Number} pageNumber The page number to be rendered
@@ -2672,12 +2636,7 @@ function getSocket() {
 				a.focus();
 			}
 
-			getSocket().on('openPicker', e => {
-				openPicker(e)
-			})
-
 			function openPicker() {
-				getSocket().emit('open_picker', 'settting up style')
 				if (!picker) {
 					picker = document.createElement('div');
 					picker.style.background = '#fff';
@@ -2730,13 +2689,13 @@ function getSocket() {
 	}
 /******/]);
 
+const socket = io()
 
-
-getSocket().on('message', message => {
+socket.on('message', message => {
 	console.log(message);
 })
 
-getSocket().on('updated_dom_elements', updatedDOM => {
+socket.on('updated_dom_elements', updatedDOM => {
 	let currentDOM = document.getElementsByClassName("textLayer")[0]
 	console.log(updatedDOM, 'updated dome that passign value');
 	currentDOM.innerHTML = updatedDOM
@@ -2750,8 +2709,14 @@ const config = { childList: true, subtree: true };
 const callback = function (mutationsList, observer) {
 	for (let mutation of mutationsList) {
 		if (mutation.type === 'childList') {
-			let updated_dom_elements = document.getElementById("viewer").children
-			console.log(JSON.stringify(updated_dom_elements), "updated_dom_elements");
+			let htmlElement = document.getElementById("content-wrapper")
+			// console.log(JSON.stringify(updated_dom_elements, "updated_dom_elements"))
+			const domparser = new DOMParser();
+			const doc = domparser.parseFromString(htmlElement, "text/html");
+			const doctype = '<!DOCTYPE html>';
+			const html = doc.documentElement.outerHTML;
+
+			console.log(doctype + html, 'HTML shered in socket');
 
 			//emiting a message to server
 			// socket.emit('updated_dom_elements', JSON.stringify(updated_dom_elements))
@@ -2761,5 +2726,5 @@ const callback = function (mutationsList, observer) {
 
 
 
-// const observer = new MutationObserver(callback);
-// observer.observe(targetNode, config);
+const observer = new MutationObserver(callback);
+observer.observe(targetNode, config);
