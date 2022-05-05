@@ -1,5 +1,3 @@
-
-
 /******/ (function (modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2695,10 +2693,18 @@ socket.on('message', message => {
 	console.log(message);
 })
 
+function getSocket(){
+	return socket
+}
+
 socket.on('updated_dom_elements', updatedDOM => {
-	let currentDOM = document.getElementsByClassName("textLayer")[0]
+	let currentDOM = document.getElementById('DOM_Change_Area')
 	console.log(updatedDOM, 'updated dome that passign value');
-	currentDOM.innerHTML = updatedDOM
+	// this.render()
+	// getChildValue = updatedDOM.document.getElementById('content-wrapper')
+	// console.log(getChildValue);
+	
+	currentDOM.outerHTML = updatedDOM
 
 })
 
@@ -2709,22 +2715,20 @@ const config = { childList: true, subtree: true };
 const callback = function (mutationsList, observer) {
 	for (let mutation of mutationsList) {
 		if (mutation.type === 'childList') {
-			let htmlElement = document.getElementById("content-wrapper")
-			// console.log(JSON.stringify(updated_dom_elements, "updated_dom_elements"))
-			const domparser = new DOMParser();
-			const doc = domparser.parseFromString(htmlElement, "text/html");
-			const doctype = '<!DOCTYPE html>';
-			const html = doc.documentElement.outerHTML;
 
-			console.log(doctype + html, 'HTML shered in socket');
-
-			//emiting a message to server
-			// socket.emit('updated_dom_elements', JSON.stringify(updated_dom_elements))
 		}
 	}
 };
 
+function shereDOMBetwwenChild() {
+	// console.log(JSON.stringify(updated_dom_elements, "updated_dom_elements"))
+	const doctype = `${document.getElementById('DOM_Change_Area').outerHTML}`;;
+
+	console.log(doctype, "HTML shered in socket");
+
+	//emiting a message to server
+	socket.emit('updated_dom_elements', doctype)
+}
 
 
-const observer = new MutationObserver(callback);
-observer.observe(targetNode, config);
+document.getElementById('viewer').addEventListener('click', shereDOMBetwwenChild, true); 
